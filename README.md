@@ -15,8 +15,9 @@ not contain query string parameters at this point.
 3.  Add any query parameters you need
 4.  Issue the request (include the body as a parameter for Post and Put requests)
 
+```java
     Http http = new Http("http://apiprovider.net/api");
     http.addQueryParameter("foo", "bar");
     http.addHeader("x-foo-header", "blah");
     System.out.println(http.doPut("{message: 'hello'}"));
-
+```
