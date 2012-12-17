@@ -1,19 +1,19 @@
 package com.joejernst;
 
 /**
-    Copyright 2012 Joe J. Ernst
+ Copyright 2012 Joe J. Ernst
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-        http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 
 import java.io.*;
@@ -24,6 +24,9 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is a simple Http client that uses only native java.net classes.
+ */
 public class Http {
     HttpURLConnection connection;
     OutputStreamWriter writer;
@@ -38,6 +41,31 @@ public class Http {
 
     public Http(String url) throws MalformedURLException {
         this.url = new URL(url);
+    }
+
+    public static String get(String url) throws Exception {
+        StringBuilder builder = new StringBuilder();
+
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("GET");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
+        }
+
+        reader.close();
+
+        int responseCode = connection.getResponseCode();
+
+        if(!(responseCode == 200)) {
+            throw new Exception(connection.getResponseMessage());
+        }
+
+        return builder.toString();
     }
 
     public String doGet() throws IOException {
@@ -121,8 +149,8 @@ public class Http {
     }
 
     private void buildHeaders() {
-        if(!headers.isEmpty()) {
-            for(Map.Entry<String, String> entry : headers.entrySet()) {
+        if (!headers.isEmpty()) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
                 connection.addRequestProperty(entry.getKey(), entry.getValue());
             }
         }
@@ -148,7 +176,7 @@ public class Http {
             builder.insert(0, "?");
         }
 
-        url = new URL(url.toString() +  builder.toString());
+        url = new URL(url.toString() + builder.toString());
     }
 
     // Convenience method to add a single header (or change the value of an existing header)
