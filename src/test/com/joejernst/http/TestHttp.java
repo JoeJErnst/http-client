@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-/**
+/*
  Copyright 2012 Joe J. Ernst
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,6 +46,8 @@ public class TestHttp {
         Response httpResponse = new Request()
                 .setUrl("http://google.com")
                 .getResource();
+
+        System.out.println(httpResponse.toString());
 
         assertEquals(200, httpResponse.getResponseCode());
     }
