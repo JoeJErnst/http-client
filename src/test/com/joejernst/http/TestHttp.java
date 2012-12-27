@@ -1,7 +1,5 @@
 package com.joejernst.http;
 
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,17 +25,14 @@ import java.io.IOException;
 
 public class TestHttp {
 
-    private final LocalServiceTestHelper helper =
-            new LocalServiceTestHelper(new LocalURLFetchServiceTestConfig());
-
     @Before
     public void setUp() {
-        helper.setUp();
+
     }
 
     @After
     public void tearDown() {
-        helper.tearDown();
+
     }
 
     @Test
