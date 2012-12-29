@@ -38,8 +38,7 @@ public class TestHttp {
     @Test
     public void testGet() throws IOException {
 
-        Response httpResponse = new Request()
-                .setUrl("http://google.com")
+        Response httpResponse = new Request("http://google.com")
                 .getResource();
 
         System.out.println(httpResponse.toString());

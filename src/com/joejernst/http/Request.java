@@ -37,10 +37,17 @@ public class Request extends Message<Request> {
     Map<String, String> query = new HashMap<String, String>();
 
     /**
-     * The default constructor is a no-op.
+     * The Constructor takes the url as a String.
+     *
+     * @param url The url parameter does not need the query string parameters if
+          *       they are going to be supplied via calls to {@link #addQueryParameter(String, String)}.  You can, however, supply
+          *       the query parameters in the URL if you wish.
+     * @throws IOException
      */
-    public Request() {
-        // no-op
+    public Request(String url) throws IOException {
+        this.url = new URL(url);
+
+        connection = (HttpURLConnection) this.url.openConnection();
     }
 
     /**
@@ -76,10 +83,10 @@ public class Request extends Message<Request> {
      * @return this Request, to support chained method calls
      * @throws MalformedURLException If the supplied url is malformed.
      */
-    public Request setUrl(String url) throws MalformedURLException {
-        this.url = new URL(url);
-        return this;
-    }
+//    public Request setUrl(String url) throws MalformedURLException {
+//        this.url = new URL(url);
+//        return this;
+//    }
 
     /**
      * Issues a GET to the server.
@@ -90,7 +97,6 @@ public class Request extends Message<Request> {
         buildQueryString();
         buildHeaders();
 
-        connection = (HttpURLConnection) this.url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("GET");
 
@@ -124,7 +130,6 @@ public class Request extends Message<Request> {
         buildQueryString();
         buildHeaders();
 
-        connection = (HttpURLConnection) this.url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod("DELETE");
 
@@ -143,14 +148,6 @@ public class Request extends Message<Request> {
         buildQueryString();
         buildHeaders();
 
-        try {
-            body = URLEncoder.encode(body, "UTF-8");
-        } catch (UnsupportedEncodingException uee) {
-            // this should never happen because we're sticking with UTF-8 encoding
-            uee.printStackTrace();
-        }
-
-        connection = (HttpURLConnection) this.url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod(method);
 
