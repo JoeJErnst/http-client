@@ -152,7 +152,7 @@ public class Request extends Message<Request> {
         connection.setRequestMethod(method);
 
         writer = new OutputStreamWriter(connection.getOutputStream());
-        writer.write("message=" + body);
+        writer.write(body);
         writer.close();
 
         return readResponse();
