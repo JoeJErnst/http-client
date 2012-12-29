@@ -31,13 +31,13 @@ Here's a GET request with a header and a query parameter specified:
         String responseBody = httpResponse.getBody();
 ```
 
-Here's a more complicated example of a POST request with query parameters and custom headers:
+Here's a more complicated example of a POST request with query parameters and a Content-Type header:
 
 ```java
         // Posts a simple JSON object to the server
         Response httpResponse = new Request()
                 .setUrl("http://mysite.com")
-                .addHeader("x-my-header", "foobar")
+                .addHeader("Content-Type", "application/json")
                 .addQueryParameter("foo", "bar")
                 .setBody("{foo: 'bar'}")
                 .postResource();
