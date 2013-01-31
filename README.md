@@ -13,8 +13,7 @@ How to use it
 Here's an example of a simple GET request:
 
 ```java
-        Response httpResponse = new Request()
-                .setUrl("http://google.com")
+        Response httpResponse = new Request("http://google.com")
                 .getResource();
 
         String responseBody = httpResponse.getBody();
@@ -22,8 +21,7 @@ Here's an example of a simple GET request:
 
 Here's a GET request with a header and a query parameter specified:
 ```java
-        Response httpResponse = new Request()
-                .setUrl("http://mysite.com")
+        Response httpResponse = new Request("http://mysite.com")
                 .addHeader("x-my-header", "foobar")
                 .addQueryParameter("foo", "bar")
                 .getResource();
@@ -35,8 +33,7 @@ Here's a more complicated example of a POST request with query parameters and a 
 
 ```java
         // Posts a simple JSON object to the server
-        Response httpResponse = new Request()
-                .setUrl("http://mysite.com")
+        Response httpResponse = new Request("http://mysite.com")
                 .addHeader("Content-Type", "application/json")
                 .addQueryParameter("foo", "bar")
                 .setBody("{foo: 'bar'}")
