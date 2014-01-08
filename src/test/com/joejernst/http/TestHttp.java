@@ -46,17 +46,4 @@ public class TestHttp {
         assertEquals(200, httpResponse.getResponseCode());
     }
 
-//    @Test
-//    public void testPost() throws IOException {
-//        Http http = new Http("http://localhost:8080/ping");
-//        http.addQueryParameter("foo", "bar");
-//        System.out.println(http.doPost("{message: 'hello'}"));
-//    }
-//
-//    @Test
-//    public void testPut() throws IOException {
-//        Http http = new Http("http://localhost:8080/ping");
-//        http.addQueryParameter("foo", "bar");
-//        System.out.println(http.doPut("{message: 'hello'}"));
-//    }
 }
